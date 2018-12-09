@@ -2,21 +2,32 @@ import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
   Route,
-  Navlink
+  NavLink
 } from 'react-router-dom'
 
 import FilmsContainer from '../containers/FilmsContainer'
 import PlanetsContainer from '../containers/PlanetsContainer'
 import PeopleContainer from '../containers/PeopleContainer'
 
-const NavLinks = () => {
-
-}
+// const NavLinks = () => {
+//
+// }
 
 const App = () => (
   <Router>
     <div>
-      {/* <NavLinks /> */}
+      <NavLink exact to="/" activeClassName="active">
+        Home
+      </NavLink>{' '}
+      <NavLink  to="/films" activeClassName="active">
+        Films
+      </NavLink>{' '}
+      <NavLink to="/planets" activeClassName="active">
+        Planets
+      </NavLink>
+
+
+
       <Route exact path="/" render={() => <h1>Home</h1>} />
       <Route path="/films" component={FilmsContainer} />
       <Route path="/people" render={() => <h1>species</h1>} />

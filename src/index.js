@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/App.js';
 import * as serviceWorker from './serviceWorker';
-import {Provider} from 'react-redux';
-import {createStore, applyMiddleware} from 'redux';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk'
-import {getResources} from './reducer'
+import { starwarsStore } from './reducer'
 
-const store = createStore(getResources, applyMiddleware(thunk))
+const store = createStore(starwarsStore, applyMiddleware(thunk))
 
 ReactDOM.render(<Provider store={store}>
   <App/>

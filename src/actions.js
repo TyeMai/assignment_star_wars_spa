@@ -7,6 +7,7 @@ export const GET_RESOURCE_SUCCESS = "GET_RESOURCE_SUCCESS";
 export const GET_SPECIES_SUCCESS = "GET_SPECIES_SUCCESS";
 export const GET_STARSHIPS_SUCCESS = "GET_STARSHIPS_SUCCESS";
 export const GET_VEHICLES_SUCCESS = "GET_VEHICLES_SUCCESS";
+export const RESET_ISFETCHING = "RESET_ISFETCHING";
 
 
 export function getResourceSuccess(data){
@@ -73,6 +74,14 @@ export function getResourceFailure(error){
   }
 }
 
+export function resetIsfetching(data){
+  console.log('resetIsfetching got called')
+  return{
+    type: RESET_ISFETCHING,
+    data
+  }
+}
+
 export function getResourceRequest(resource) {
   console.log('im in the get resoruce request section')
   console.log(resource)
@@ -82,11 +91,12 @@ export function getResourceRequest(resource) {
       if(!response.ok){
         throw new Error(`${response.status}${response.statusText}`)
       }
-      console.log(response, 'im response from fetch client')
+      //console.log(response, 'im response from fetch client')
       return response.json()
     })
     .then((data) => {
       if(resource === "films") {
+        console.log('i make it to films dispatch in action')
         dispatch(getFilmsSuccess(data))
       } else if (resource === 'people'){
         dispatch(getPeopleSuccess(data))
@@ -101,8 +111,10 @@ export function getResourceRequest(resource) {
       } else {
         dispatch(getResourceSuccess(data))
       }
-
+      //return dispatch
     })
+    //.then(console.log("next then"))
+    //.then(dispatch(resetIsfetching()), console.log('even nex then'))
     .catch(error => {
       dispatch(getResourceFailure(error))
     })
