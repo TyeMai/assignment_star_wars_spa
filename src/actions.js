@@ -86,7 +86,7 @@ export function getResourceRequest(resource) {
   console.log('im in the get resoruce request section')
   console.log(resource)
   return (dispatch) => {
-    dispatch(resourceRequest())
+    dispatch(resourceRequest(resource))
     fetch(`/api/${resource}`).then(response => {
       if(!response.ok){
         throw new Error(`${response.status}${response.statusText}`)

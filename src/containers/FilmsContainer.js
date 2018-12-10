@@ -23,9 +23,15 @@ class FilmsContainer extends Component {
 
   render(){
     const {films, isFetching, resetIsfetching} = this.props
-    return(
-      <Films films={films} isFetching={isFetching} />
-    )
+    if (isFetching){
+      return <h1> hey im working </h1>
+
+    } else {
+      return(
+        <Films films={films} isFetching={isFetching} />
+      )
+    }
+
     //this.props.resetIsfetching()
     //resetIsfetching()
     //console.log(isFetching)
@@ -36,8 +42,10 @@ class FilmsContainer extends Component {
 const mapStateToProps = (state) => {
   console.log(state)
   return {
-    films: state.getFilms.films,
-    isFetching: state.getFilms.isFetching,
+    // films: state.getFilms.films,
+    // isFetching: state.getFilms.isFetching,
+    films: state.films,
+    isFetching: state.isFetching,
   }
 }
 const mapDispatchToProps = (dispatch) => {

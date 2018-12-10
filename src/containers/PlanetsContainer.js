@@ -22,11 +22,15 @@ class PlanetsContainer extends Component {
   // }
 
   render(){
-    const {planets, isFetching} = this.props
-    return(
-      <Planets planets={planets} isFetching={isFetching} />
-    )
-    //this.props.resetIsfetching()
+    const {planets, isFetching, fetchedResource} = this.props
+    if (fetchedResource === 'planets'){
+      return <h1> hey im working </h1>
+
+    } else {
+      return(
+        <Planets planets={planets} isFetching={isFetching} />
+      )
+    }
   }
 
 }
@@ -34,9 +38,11 @@ class PlanetsContainer extends Component {
 const mapStateToProps = (state) => {
   console.log(state)
   return {
-    planets: state.getPlanets.planets,
-    isFetching: state.getPlanets.isFetching,
+    // planets: state.getPlanets.planets,
+    // isFetching: state.getPlanets.isFetching,
     //: state
+    planets: state.planets,
+    isFetching: state.isFetching,
   }
 }
 const mapDispatchToProps = (dispatch) => {
