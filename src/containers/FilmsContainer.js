@@ -1,8 +1,10 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import Films from '../components/Films'
-import { getResourceRequest, resetIsfetching} from '../actions.js'
+import Button from '../components/Button'
+import { getResourceRequest, pageUp, pageDown } from '../actions.js'
 import { withRouter } from 'react-router-dom'
+
 
 
 class FilmsContainer extends Component {
@@ -22,15 +24,33 @@ class FilmsContainer extends Component {
   // }
 
   render(){
-    const {films, isFetching, resetIsfetching} = this.props
-    if (isFetching){
-      return <h1> hey im working </h1>
+    const {films, isFetching, page, bkPage, fwdPage} = this.props
+  //  if (fetchedResource === 'films'){
+  //console.log(films, "films passgd from satet")
 
-    } else {
-      return(
-        <Films films={films} isFetching={isFetching} />
-      )
-    }
+  if(!isFetching){
+    //console.log(page, "im the page")
+    //console.log(films, 'im the films')
+    let filmPageStart = page - 1
+    //console.log(filmPageStart)
+    let filmOnPage = films.slice(filmPageStart, page)
+    //console.log(filmOnPage)
+    return (
+      <div>
+        <Films films={filmOnPage} isFetching={isFetching} />
+        <Button btnName='Back' onClick={bkPage}/>
+        <Button btnName='Forward' onClick={fwdPage}/>
+      </div>
+    )
+  } else {
+    return <Films films={films} isFetching={isFetching} />
+  }
+
+
+
+    // } else {
+    //       return <h1> hey im working </h1>
+    // }
 
     //this.props.resetIsfetching()
     //resetIsfetching()
@@ -42,10 +62,13 @@ class FilmsContainer extends Component {
 const mapStateToProps = (state) => {
   console.log(state)
   return {
-    // films: state.getFilms.films,
-    // isFetching: state.getFilms.isFetching,
-    films: state.films,
-    isFetching: state.isFetching,
+    films: state.getFilms.films,
+    isFetching: state.getFilms.isFetching,
+    page: state.pageControl.filmsPage
+
+    // films: state.films,
+    // isFetching: state.isFetching,
+    // fetchedResource: state.fetchedResource
   }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -57,6 +80,14 @@ const mapDispatchToProps = (dispatch) => {
     // resetIsfetching: () => {
     //   dispatch(resetIsfetching())
     // }
+    fwdPage: () => {
+      dispatch(pageUp())
+    },
+
+    bkPage: () => {
+      dispatch(pageDown())
+    }
+
    }
 
  }

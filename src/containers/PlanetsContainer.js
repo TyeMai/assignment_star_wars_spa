@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import Planets from '../components/Planets'
-import { getResourceRequest, resetIsfetching } from '../actions.js'
+import { getResourceRequest } from '../actions.js'
 import { withRouter } from 'react-router-dom'
 
 
@@ -22,15 +22,15 @@ class PlanetsContainer extends Component {
   // }
 
   render(){
-    const {planets, isFetching, fetchedResource} = this.props
-    if (fetchedResource === 'planets'){
-      return <h1> hey im working </h1>
-
-    } else {
+    const {planets, isFetching} = this.props
+    //if (fetchedResource === 'planets'){
       return(
         <Planets planets={planets} isFetching={isFetching} />
       )
-    }
+
+    // } else {
+    //   return <h1> hey im working </h1>
+    // }
   }
 
 }
@@ -38,11 +38,12 @@ class PlanetsContainer extends Component {
 const mapStateToProps = (state) => {
   console.log(state)
   return {
-    // planets: state.getPlanets.planets,
-    // isFetching: state.getPlanets.isFetching,
+    planets: state.getPlanets.planets,
+    isFetching: state.getPlanets.isFetching,
     //: state
-    planets: state.planets,
-    isFetching: state.isFetching,
+    // planets: state.planets,
+    // isFetching: state.isFetching,
+    // fetchedResource: state.fetchedResource
   }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -61,12 +62,12 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 //
-// export default withRouter(connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(PlanetsContainer))
-//
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(PlanetsContainer)
+)(PlanetsContainer))
+
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(PlanetsContainer)

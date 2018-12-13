@@ -8,7 +8,10 @@ export const GET_SPECIES_SUCCESS = "GET_SPECIES_SUCCESS";
 export const GET_STARSHIPS_SUCCESS = "GET_STARSHIPS_SUCCESS";
 export const GET_VEHICLES_SUCCESS = "GET_VEHICLES_SUCCESS";
 export const RESET_ISFETCHING = "RESET_ISFETCHING";
-
+export const TURN_ONE_PAGE_BK_FILMS = "TURN_ONE_PAGE_BK_FILMS";
+export const TURN_ONE_PAGE_FWD_FILMS = "TURN_ONE_PAGE_FWD_FILMS";
+export const TURN_ONE_PAGE_BK_PLANETS = "TURN_ONE_PAGE_BK_PLANETS";
+export const TURN_ONE_PAGE_FWD_PLANETS = "TURN_ONE_PAGE_FWD_PLANETS";
 
 export function getResourceSuccess(data){
   return {
@@ -79,6 +82,20 @@ export function resetIsfetching(data){
   return{
     type: RESET_ISFETCHING,
     data
+  }
+}
+
+export function pageUp() {
+  return {
+    type: TURN_ONE_PAGE_FWD_FILMS,
+    
+  }
+}
+
+export function pageDown() {
+  return {
+    type: TURN_ONE_PAGE_BK_FILMS,
+
   }
 }
 
