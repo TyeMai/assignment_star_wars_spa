@@ -173,20 +173,31 @@ function pageControl(state = initialPages, action) {
     case Actions.TURN_ONE_PAGE_BK_FILMS:
     return {
       ...state,
-      filmsPage: initialPages.filmsPage-- ,
+      filmsPage: state.filmsPage - 1 ,
     }
     case Actions.TURN_ONE_PAGE_FWD_FILMS:
     console.log("pf fwd got called")
     return {
       ...state,
-      filmsPage: initialPages.filmsPage++
+      filmsPage: state.filmsPage + 1
     }
     default:
     return state
   }
-
-
 }
+//
+// function search(state = initialSearch, action){
+//   switch(action.type){
+//     case :
+//     return {
+//
+//     }
+//     default:
+//     return state
+//   }
+//
+//
+// }
 
 export const starwarsStore = combineReducers ({
   getFilms,

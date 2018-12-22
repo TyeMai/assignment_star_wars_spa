@@ -3,7 +3,8 @@ import {connect} from 'react-redux'
 import Films from '../components/Films'
 import Button from '../components/Button'
 import { getResourceRequest, pageUp, pageDown } from '../actions.js'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link} from 'react-router-dom'
+//import serachHelper from '../components/helpers/searchHelper'
 
 
 
@@ -16,18 +17,12 @@ class FilmsContainer extends Component {
     //this.props.resetIsfetching()
   }
 
-  // componentDidUpdate(){
-  //   console.log('componet did update in filsm')
-  //   let resource = "films"
-  //   //this.props.resetIsfetching()
-  //   //this.props.getResourceRequest(resource)
-  // }
 
   render(){
     const {films, isFetching, page, bkPage, fwdPage} = this.props
   //  if (fetchedResource === 'films'){
   //console.log(films, "films passgd from satet")
-
+  //console.log(ownProps)
   if(!isFetching){
     //console.log(page, "im the page")
     //console.log(films, 'im the films')
@@ -38,8 +33,14 @@ class FilmsContainer extends Component {
     return (
       <div>
         <Films films={filmOnPage} isFetching={isFetching} />
-        <Button btnName='Back' onClick={bkPage}/>
-        <Button btnName='Forward' onClick={fwdPage}/>
+        {/* <Button btnName='Back' onClick={bkPage}/>
+        <Button btnName='Forward' onClick={fwdPage}/> */}
+        <Link to={{pathname: '/films', search: `page=${page}`}}>
+          Forward
+        </Link>
+        <Link to={`/films/${page - 1}`}>
+          Back
+        </Link>
       </div>
     )
   } else {
@@ -59,12 +60,14 @@ class FilmsContainer extends Component {
 
 }
 
-const mapStateToProps = (state) => {
-  console.log(state)
+const mapStateToProps = (state, ownProps) => {
+  console.log( ownProps)
   return {
     films: state.getFilms.films,
     isFetching: state.getFilms.isFetching,
-    page: state.pageControl.filmsPage
+    //page: state.pageControl.filmsPage,
+    searchedFilms: state.getFilms.searchResult,
+    page: ownProps.page
 
     // films: state.films,
     // isFetching: state.isFetching,
@@ -77,19 +80,18 @@ const mapDispatchToProps = (dispatch) => {
     getResourceRequest: (resource) => {
       dispatch(getResourceRequest(resource))
     },
-    // resetIsfetching: () => {
-    //   dispatch(resetIsfetching())
-    // }
+
     fwdPage: () => {
       dispatch(pageUp())
     },
 
     bkPage: () => {
       dispatch(pageDown())
+    },
+    onSearchSubmit: (resource) => {
+      dispatch(getResourceRequest(resource))
     }
-
    }
-
  }
 
 
@@ -103,3 +105,5 @@ export default withRouter(connect(
 //   mapStateToProps,
 //   mapDispatchToProps
 // )(FilmsContainer)
+
+//need to get props that were passed into it.
